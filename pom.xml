@@ -48,7 +48,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>gay.monke.Main</mainClass>
+							<mainClass>net.schedge.cards.Main</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
