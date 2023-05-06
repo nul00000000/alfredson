@@ -23,7 +23,7 @@ public class Logger {
 		if(level <= errLevel) {
 			System.err.println("[" + Instant.now().truncatedTo(ChronoUnit.SECONDS) + " " + CODES[level] + "] " + message);
 		} else if(!onlyErrors && level <= outLevel) {
-			System.out.println("[" + Instant.now() + " " + CODES[level] + "] " + message);
+			System.out.println("[" + Instant.now().truncatedTo(ChronoUnit.SECONDS) + " " + CODES[level] + "] " + message);
 		}
 	}
 	

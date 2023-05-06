@@ -1,12 +1,12 @@
 package net.schedge.cards.server.packet;
 
-public class DuncePacket implements Packet {
+public class DuncePacket extends Packet {
 	
 	public String info;
-
-	@Override
-	public String toJSON() {
-		return null;
+	
+	public DuncePacket(String info) {
+		this.packetType = "dunce";
+		this.info = info;
 	}
 
 }

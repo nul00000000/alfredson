@@ -1,7 +1,6 @@
 package net.schedge.cards.server;
 
 import java.io.Closeable;
-import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
@@ -17,9 +16,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import net.schedge.cards.Logger;
-import net.schedge.cards.database.schedge.SchedgeDatabase;
-import net.schedge.cards.game.Game;
 import net.schedge.cards.server.packet.Packet;
+import net.schedge.cards.server.packet.PacketDeserializer;
 
 public class Server extends WebSocketServer implements Closeable {
 	
@@ -32,7 +30,7 @@ public class Server extends WebSocketServer implements Closeable {
 	
 	private Gson gson;
 	
-	public Server(InetSocketAddress address, Game game, SchedgeDatabase schedgeDatabase) {
+	public Server(InetSocketAddress address) {
 		super(address);
 		this.incoming = new HashMap<>();
 		this.incomingConnections = new ArrayList<>();
@@ -40,7 +38,7 @@ public class Server extends WebSocketServer implements Closeable {
 		this.lastBitrateCheck = System.currentTimeMillis();
 		
 		GsonBuilder builder = new GsonBuilder();
-		Packet.PacketDeserializer des = new Packet.PacketDeserializer();
+		PacketDeserializer des = new PacketDeserializer();
 		builder.registerTypeAdapter(Packet.class, des);
 		this.gson = builder.create();
 	}
@@ -97,7 +95,7 @@ public class Server extends WebSocketServer implements Closeable {
 	 */
 	public boolean sendPacket(WebSocket to, Packet packet) {
 		try {
-			to.send(packet.toJSON());
+			to.send(gson.toJson(packet));
 			return true;
 		} catch(IllegalArgumentException e) {
 			Logger.debug("tried to send null data from " + packet);
@@ -110,7 +108,7 @@ public class Server extends WebSocketServer implements Closeable {
 	
 	public void broadcastPacket(Packet packet) {
 		for(WebSocket s : incoming.keySet()) {
-			s.send(packet.toJSON());
+			s.send(gson.toJson(packet));
 		}
 	}
 	
@@ -173,7 +171,7 @@ public class Server extends WebSocketServer implements Closeable {
 	}
 
 	@Override
-	public void close() throws IOException {
+	public void close() {
 		shutdown();
 	}
 

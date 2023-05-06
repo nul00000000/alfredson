@@ -1,4 +1,4 @@
-package net.schedge.cards.server.json;
+package net.schedge.cards.provider.json;
 
 public class SetCardResponse {
 	

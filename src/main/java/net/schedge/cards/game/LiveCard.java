@@ -15,16 +15,20 @@ public class LiveCard {
 		this(Card.getCard(cardBaseID));
 	}
 	
+	public int getID() {
+		return cardBase.id;
+	}
+	
 	public int getHealth() {
 		return health;
 	}
 	
 	public void giveAttack(LiveCard to) {
-		to.receiveAttack(to, this.cardBase.attackDamage);
+		to.receiveAttack(this, this.cardBase.attackDamage);
 	}
 	
 	public void receiveAttack(LiveCard from, int damage) {
-		this.health -= (damage - this.cardBase.defenseDamage); //we are temporarily assuming all defenses are #1s
+		this.health -= (damage); //we are temporarily ~~assuming all defenses are #1s~~ assuming no defense :)
 	}
 
 }

@@ -1,15 +1,24 @@
 package net.schedge.cards.game;
 
+import org.java_websocket.WebSocket;
+
 public class Player {
 	
-	public final int id;
-	public final int loginID;
+	public WebSocket connection;
+	private Game game;
+	
+	public final int id = 0;
+	public final int loginID = 0;
 	public LiveCard card;
 	
-	public Player(int id, int loginID) {
-		this.id = id;
-		this.loginID = loginID;
+	public Player(WebSocket connection, Game game) {
+		this.connection = connection;
 		this.card = null;
+		this.game = game;
+	}
+	
+	public Game getGame() {
+		return game;
 	}
 	
 	public void setCard(int card) {

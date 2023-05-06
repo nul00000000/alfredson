@@ -6,7 +6,7 @@ import java.io.OutputStream;
 import com.sun.net.httpserver.HttpExchange;
 
 import net.schedge.cards.game.Card;
-import net.schedge.cards.server.json.JsonHandler;
+import net.schedge.cards.provider.json.JsonHandler;
 
 public class CardHandler extends AlfredsonHandler {
 	
